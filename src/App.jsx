@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import Carousel from './components/Carousel'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Routs from './components/Routs'
 
 
 function App() {
@@ -10,7 +10,10 @@ function App() {
 
   return (
     <>
-   
+    <Header/>
+  <Carousel/>
+    <Routs/>
+   <Footer/>
     </>
   )
 }
