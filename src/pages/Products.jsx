@@ -1,17 +1,17 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Products = () => {
   let [products, setproducts] = useState([])
   let [category, setCategory] = useState('')
   let [categoryList, setCategoryList] = useState([])
   let [search, setsearch] = useState('')
-  let [viewBtn, setviewBtn] = useState('')
+  let [viewBtn, setviewBtn] = useState(0)
   let [page, setPage] = useState(1)
 
   let perpage = 10
 
-  // Fetch categories
   useEffect(() => {
     async function ProductsApis() {
       let { data } = await axios.get('https://dummyjson.com/products/category-list')
@@ -20,7 +20,6 @@ const Products = () => {
     ProductsApis()
   }, [])
 
-  // Fetch products
   useEffect(() => {
     async function ListApis() {
       let url;
@@ -38,8 +37,8 @@ const Products = () => {
       let AllProducts = data.products || []
       setviewBtn(AllProducts.length)
 
-      let pagenation = AllProducts.slice((page - 1) * perpage, page * perpage)
-      setproducts(pagenation)
+      let pagination = AllProducts.slice((page - 1) * perpage, page * perpage)
+      setproducts(pagination)
     }
 
     ListApis()
@@ -48,97 +47,85 @@ const Products = () => {
   let totalPages = Math.ceil(viewBtn / perpage)
 
   return (
-    <>
-      <div className="container">
+    <div className="container">
 
-        {/* 🔥 Search + Category (SIDE BY SIDE) */}
-        <div className="row g-3 my-3">
-          
-          {/* Search */}
-          <div className="col-md-6">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search products..."
-              onChange={(e) => {
-                setsearch(e.target.value)
-                setCategory('')
-                setPage(1)
-              }}
-            />
-          </div>
+      <div className="row g-3 my-3">
 
-          {/* Category */}
-          <div className="col-md-6">
-            <select
-              className="form-control"
-              onChange={(e) => {
-                setCategory(e.target.value)
-                setsearch('')
-                setPage(1)
-              }}
-            >
-              <option value="">All Categories</option>
-              {
-                categoryList.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))
-              }
-            </select>
-          </div>
-
+        <div className="col-md-6">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search..."
+            onChange={(e) => {
+              setsearch(e.target.value)
+              setCategory('')
+              setPage(1)
+            }}
+          />
         </div>
 
-        {/* Products */}
-        <div className="row g-4">
-          {
-            products.map((item) => (
-              <div className="col-md-3" key={item.id}>
-                <div className="card h-100 shadow-sm">
-
-                  <img
-                    src={item.thumbnail}
-                    className="card-img-top"
-                    alt={item.title}
-                    style={{ height: "200px", objectFit: "cover" }}
-                  />
-
-                  <div className="card-body d-flex flex-column">
-                    <h5 className="card-title">{item.title}</h5>
-                    <p className="card-text text-truncate">
-                      {item.description}
-                    </p>
-                    <h6 className="mt-auto text-primary">
-                      ₹ {item.price}
-                    </h6>
-                  </div>
-
-                </div>
-              </div>
-            ))
-          }
-        </div>
-
-        {/* Pagination */}
-        <div className="mt-4 text-center">
-          {
-            totalPages > 1 &&
-            Array.from({ length: totalPages }, (_, i) => i + 1).map(num => (
-              <button
-                key={num}
-                className={`btn me-2 ${page === num ? "btn-primary" : "btn-outline-primary"}`}
-                onClick={() => setPage(num)}
-              >
-                {num}
-              </button>
-            ))
-          }
+        <div className="col-md-6">
+          <select
+            className="form-control"
+            onChange={(e) => {
+              setCategory(e.target.value)
+              setsearch('')
+              setPage(1)
+            }}
+          >
+            <option value="">All Categories</option>
+            {
+              categoryList.map((item) => (
+                <option key={item}>{item}</option>
+              ))
+            }
+          </select>
         </div>
 
       </div>
-    </>
+
+      <div className="row g-4">
+        {
+          products.map((item) => (
+            <div className="col-md-3" key={item.id}>
+
+              {/* ✅ CLICKABLE */}
+              <Link 
+                to={`/products/${item.id}`} 
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div className="card h-100 shadow-sm">
+
+                  <img src={item.thumbnail} className="card-img-top" />
+
+                  <div className="card-body">
+                    <h5>{item.title}</h5>
+                    <p>₹ {item.price}</p>
+                  </div>
+
+                </div>
+              </Link>
+
+            </div>
+          ))
+        }
+      </div>
+
+      <div className="mt-4 text-center">
+        {
+          Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              className="btn btn-outline-primary m-1"
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))
+        }
+      </div>
+
+    </div>
   )
 }
 

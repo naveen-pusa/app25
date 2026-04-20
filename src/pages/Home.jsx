@@ -1,9 +1,11 @@
 import React from 'react'
+import Carousel from '../components/Carousel'
+import Footer from '../components/Footer'
 
 function Home() {
   return (
     <div>
-      {/* <h1>tjhdcsjnl</h1> */}
+      <Carousel/>
     </div>
   )
 }
