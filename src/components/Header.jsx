@@ -16,8 +16,11 @@ function Header() {
                             <Link to="/products" className="nav-link text-white" href="#">Products</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/about" className="nav-link text-white " href="#" tabindex="-1" aria-disabled="true">About</Link>
+                            <Link to="/about" className="nav-link text-white " href="#" tabIndex="-1" aria-disabled="true">About</Link>
                         </li>
+                        {/* <li className="nav-item">
+                            <Link to="/signin" className="nav-link text-white " href="#" tabindex="-1" aria-disabled="true">FormValidation</Link>
+                        </li> */}
                     </ul>
                 </div>
 

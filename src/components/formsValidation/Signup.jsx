@@ -1,6 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Signup = () => {
+
+  let navigate = useNavigate()
   return (
    <>
    <center>
@@ -51,7 +54,7 @@ const Login = () => {
 
                   <div className="form-check d-flex justify-content-center mb-5">
     
-                    <p className="p">Don't have an account? <span className="span" onClick={()=> navigate('/login')}>Login</span></p>
+                    <p className="p">Don't have an account? <span className="span" onClick={()=> navigate('/')}>Login</span></p>
                     
                   </div>
 
@@ -80,4 +83,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup

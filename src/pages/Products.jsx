@@ -90,8 +90,8 @@ const Products = () => {
             <div className="col-md-3" key={item.id}>
 
               {/* ✅ CLICKABLE */}
-              <Link 
-                to={`/products/${item.id}`} 
+              <Link
+                to={`/products/${item.id}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <div className="card h-100 shadow-sm">
@@ -117,6 +117,7 @@ const Products = () => {
             <button
               key={i}
               className="btn btn-outline-primary m-1"
+              style={{ width: "auto" }}   // ✅ FIX
               onClick={() => setPage(i + 1)}
             >
               {i + 1}

@@ -1,16 +1,17 @@
-// import React from 'react'
-// import Header from './Header'
-// import Carousel from './Carousel'
-// import Footer from './Footer'
+import React from 'react'
+import Header from './Header'
+import { Outlet } from 'react-router-dom'
+import Footer from './Footer'
 
-// function Layout() {
-//   return (
-//   <>
-//       <Header/>
-//       <Carousel/>
-//       <Footer/>
-//   </>
-//   )
-// }
+function Layout() {
+  return (
+    <>
+    <Header/>
+    <Outlet/>
+    <Footer/>
+    </>
+  )
+}
 
-// export default Layout
+export default Layout
+
