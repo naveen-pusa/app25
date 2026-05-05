@@ -1,10 +1,13 @@
+
+
 import { configureStore } from "@reduxjs/toolkit";
-import incdec from "./Slice"
+import naveen from "./Slice"
+
+
 
 
 export default configureStore({
- 
     reducer:{
-        count:incdec
+        count:naveen
     }
 })
